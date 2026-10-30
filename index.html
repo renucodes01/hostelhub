@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Hostel Management System</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="css/style.css" rel="stylesheet">
+</head><body>
+<nav class="navbar navbar-expand-lg navbar-dark navbar-land">
+  <div class="container">
+    <a class="navbar-brand fw-bold" href="#"><i class="bi bi-building-fill me-2"></i>HostelHub</a>
+    <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#nv"><span class="navbar-toggler-icon"></span></button>
+    <div class="collapse navbar-collapse" id="nv">
+      <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
+        <li class="nav-item"><a class="nav-link" href="#features">Features</a></li>
+        <li class="nav-item"><a class="nav-link" href="#how">How it works</a></li>
+        <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+        <li class="nav-item"><a class="btn btn-light rounded-pill px-4 ms-lg-2" href="login.html">Login</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<section class="hero grad">
+  <div class="container position-relative" style="z-index:2">
+    <div class="row align-items-center g-5">
+      <div class="col-lg-7">
+        <span class="badge bg-light text-primary rounded-pill px-3 py-2 mb-3">Campus Administration</span>
+        <h1>Smart <span style="color:#a5f3fc">Hostel Management</span> made simple</h1>
+        <p class="lead mt-3 mb-4 opacity-75">Room allocation, student records, fee tracking and complaints — all in one beautiful dashboard for wardens and students.</p>
+        <a href="login.html#register" class="btn btn-light btn-lg rounded-pill px-4 me-2 fw-semibold">Student Register</a>
+        <a href="login.html" class="btn btn-outline-light btn-lg rounded-pill px-4">Warden Login</a>
+      </div>
+      <div class="col-lg-5">
+        <div class="hero-card">
+          <div class="row g-3 text-center">
+            <div class="col-6"><h2 class="fw-bold mb-0"><i class="bi bi-door-open"></i></h2><small>Easy Room Booking</small></div>
+            <div class="col-6"><h2 class="fw-bold mb-0"><i class="bi bi-wallet2"></i></h2><small>Fee Tracking</small></div>
+            <div class="col-6"><h2 class="fw-bold mb-0"><i class="bi bi-chat-dots"></i></h2><small>Quick Complaints</small></div>
+            <div class="col-6"><h2 class="fw-bold mb-0"><i class="bi bi-graph-up-arrow"></i></h2><small>Live Analytics</small></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="features" class="py-5"><div class="container py-4">
+  <div class="text-center mb-5"><h2 class="fw-bold">Powerful Features</h2><p class="text-muted">Everything a hostel needs, in one place</p></div>
+  <div class="row g-4">
+    <div class="col-md-6 col-lg-3"><div class="feature"><div class="ico" style="background:#6366f1"><i class="bi bi-door-closed"></i></div><h5>Room Allocation</h5><p class="text-muted small mb-0">Allocate, vacate and track occupancy block by block.</p></div></div>
+    <div class="col-md-6 col-lg-3"><div class="feature"><div class="ico" style="background:#06b6d4"><i class="bi bi-people"></i></div><h5>Student Records</h5><p class="text-muted small mb-0">Complete profiles with guardian details at a click.</p></div></div>
+    <div class="col-md-6 col-lg-3"><div class="feature"><div class="ico" style="background:#10b981"><i class="bi bi-cash-coin"></i></div><h5>Fee Tracking</h5><p class="text-muted small mb-0">Bill students, mark payments, see pending dues.</p></div></div>
+    <div class="col-md-6 col-lg-3"><div class="feature"><div class="ico" style="background:#f59e0b"><i class="bi bi-tools"></i></div><h5>Complaints</h5><p class="text-muted small mb-0">Raise issues and follow resolution status live.</p></div></div>
+  </div>
+</div></section>
+
+<section id="how" class="py-5 grad"><div class="container py-3">
+  <div class="row g-4 counter-box">
+    <div class="col-md-4"><h2>1. Register</h2><p class="opacity-75">Student creates an account in seconds.</p></div>
+    <div class="col-md-4"><h2>2. Get a Room</h2><p class="opacity-75">Warden allocates a room from the dashboard.</p></div>
+    <div class="col-md-4"><h2>3. Stay Updated</h2><p class="opacity-75">Track fees and complaints anytime.</p></div>
+  </div>
+</div></section>
+
+<footer id="contact" class="py-4 text-center">
+  <div class="container"><i class="bi bi-building-fill"></i> HostelHub &middot; Online Hostel Management System &middot; Built with Node.js, Express &amp; MongoDB</div>
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body></html>
