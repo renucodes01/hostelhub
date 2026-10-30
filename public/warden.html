@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Warden Dashboard | HostelHub</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="css/style.css" rel="stylesheet">
+</head><body>
+<aside class="sidebar">
+  <div class="brand"><i class="bi bi-building-fill me-2"></i>HostelHub</div>
+  <div class="mt-3">
+    <a class="nav-item active" data-sec="overview"><i class="bi bi-speedometer2"></i>Dashboard</a>
+    <a class="nav-item" data-sec="rooms"><i class="bi bi-door-open"></i>Rooms</a>
+    <a class="nav-item" data-sec="students"><i class="bi bi-people"></i>Students</a>
+    <a class="nav-item" data-sec="fees"><i class="bi bi-cash-coin"></i>Fees</a>
+    <a class="nav-item" data-sec="complaints"><i class="bi bi-tools"></i>Complaints</a>
+    <a class="nav-item" onclick="logout()"><i class="bi bi-box-arrow-left"></i>Logout</a>
+  </div>
+</aside>
+
+<div class="main">
+  <div class="topbar d-flex justify-content-between align-items-center">
+    <div><button class="btn btn-light menu-btn me-2"><i class="bi bi-list"></i></button><b id="title">Dashboard</b></div>
+    <span class="text-muted"><i class="bi bi-person-circle me-1"></i><span id="who"></span></span>
+  </div>
+
+  <!-- OVERVIEW -->
+  <div class="section show" id="overview">
+    <div class="row g-3 mb-4">
+      <div class="col-6 col-xl-3"><div class="stat s1"><small>Total Students</small><h3 id="stStudents">0</h3><i class="bi bi-people-fill"></i></div></div>
+      <div class="col-6 col-xl-3"><div class="stat s2"><small>Occupied / Capacity</small><h3 id="stBeds">0</h3><i class="bi bi-door-open-fill"></i></div></div>
+      <div class="col-6 col-xl-3"><div class="stat s3"><small>Fees Collected</small><h3 id="stCollected">0</h3><i class="bi bi-cash-stack"></i></div></div>
+      <div class="col-6 col-xl-3"><div class="stat s4"><small>Fees Pending</small><h3 id="stPending">0</h3><i class="bi bi-hourglass-split"></i></div></div>
+    </div>
+    <div class="row g-3">
+      <div class="col-lg-6"><div class="panel"><h6 class="fw-semibold">Room Occupancy</h6><div style="height:260px"><canvas id="chOcc"></canvas></div></div></div>
+      <div class="col-lg-6"><div class="panel"><h6 class="fw-semibold">Complaints Status</h6><div style="height:260px"><canvas id="chComp"></canvas></div></div></div>
+    </div>
+  </div>
+
+  <!-- ROOMS -->
+  <div class="section" id="rooms">
+    <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+      <select id="roomFilter" class="form-select w-auto"><option value="">All rooms</option><option value="free">Vacant beds</option><option value="full">Full</option></select>
+      <button class="btn btn-grad" data-bs-toggle="modal" data-bs-target="#mRoom"><i class="bi bi-plus-lg me-1"></i>Add Room</button>
+    </div>
+    <div class="row g-3" id="roomGrid"></div>
+  </div>
+
+  <!-- STUDENTS -->
+  <div class="section" id="students">
+    <div class="panel">
+      <input id="stuSearch" class="form-control mb-3" placeholder="Search by name, email or course...">
+      <div class="table-responsive"><table class="table align-middle">
+        <thead><tr><th>Name</th><th>Email</th><th>Course</th><th>Phone</th><th>Guardian</th><th>Room</th><th></th></tr></thead>
+        <tbody id="stuBody"></tbody></table></div>
+    </div>
+  </div>
+
+  <!-- FEES -->
+  <div class="section" id="fees">
+    <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+      <select id="feeFilter" class="form-select w-auto"><option value="">All</option><option>Pending</option><option>Paid</option></select>
+      <button class="btn btn-grad" data-bs-toggle="modal" data-bs-target="#mFee"><i class="bi bi-plus-lg me-1"></i>Add Fee</button>
+    </div>
+    <div class="panel"><div class="table-responsive"><table class="table align-middle">
+      <thead><tr><th>Student</th><th>Title</th><th>Amount</th><th>Due</th><th>Status</th><th>Paid On</th><th></th></tr></thead>
+      <tbody id="feeBody"></tbody></table></div></div>
+  </div>
+
+  <!-- COMPLAINTS -->
+  <div class="section" id="complaints">
+    <div class="panel"><div class="table-responsive"><table class="table align-middle">
+      <thead><tr><th>Student</th><th>Category</th><th>Issue</th><th>Date</th><th>Status</th><th>Remark</th><th></th></tr></thead>
+      <tbody id="compBody"></tbody></table></div></div>
+  </div>
+</div>
+
+<!-- Modal: add room -->
+<div class="modal fade" id="mRoom"><div class="modal-dialog"><form class="modal-content" id="roomForm">
+  <div class="modal-header"><h5 class="modal-title">Add Room</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
+  <div class="modal-body row g-2">
+    <div class="col-6"><label class="form-label">Room No</label><input id="rmNo" class="form-control" required></div>
+    <div class="col-6"><label class="form-label">Block</label><input id="rmBlock" class="form-control" required></div>
+    <div class="col-6"><label class="form-label">Floor</label><input id="rmFloor" type="number" value="1" class="form-control"></div>
+    <div class="col-6"><label class="form-label">Type</label><select id="rmType" class="form-select"><option>Single</option><option selected>Double</option><option>Triple</option><option>Four</option></select></div>
+    <div class="col-6"><label class="form-label">Capacity</label><input id="rmCap" type="number" min="1" value="2" class="form-control" required></div>
+    <div class="col-6"><label class="form-label">Fee (₹)</label><input id="rmFee" type="number" value="30000" class="form-control"></div>
+  </div>
+  <div class="modal-footer"><button class="btn btn-grad">Save</button></div>
+</form></div></div>
+
+<!-- Modal: room details / allocate -->
+<div class="modal fade" id="mAlloc"><div class="modal-dialog"><div class="modal-content">
+  <div class="modal-header"><h5 class="modal-title" id="alTitle">Room</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
+  <div class="modal-body">
+    <h6>Occupants</h6><ul class="list-group mb-3" id="alOcc"></ul>
+    <div id="alForm"><label class="form-label">Allocate student</label>
+      <div class="input-group"><select id="alStudent" class="form-select"></select><button class="btn btn-grad" id="alBtn">Allocate</button></div></div>
+  </div>
+</div></div></div>
+
+<!-- Modal: add fee -->
+<div class="modal fade" id="mFee"><div class="modal-dialog"><form class="modal-content" id="feeForm">
+  <div class="modal-header"><h5 class="modal-title">Add Fee</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
+  <div class="modal-body row g-2">
+    <div class="col-12"><label class="form-label">Student</label><select id="feStudent" class="form-select" required></select></div>
+    <div class="col-12"><label class="form-label">Title</label><input id="feTitle" class="form-control" placeholder="Hostel fee - Sem 1" required></div>
+    <div class="col-6"><label class="form-label">Amount (₹)</label><input id="feAmt" type="number" min="1" class="form-control" required></div>
+    <div class="col-6"><label class="form-label">Due date</label><input id="feDue" type="date" class="form-control" required></div>
+  </div>
+  <div class="modal-footer"><button class="btn btn-grad">Add</button></div>
+</form></div></div>
+
+<!-- Modal: complaint update -->
+<div class="modal fade" id="mComp"><div class="modal-dialog"><form class="modal-content" id="compForm">
+  <div class="modal-header"><h5 class="modal-title">Update Complaint</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
+  <div class="modal-body">
+    <p id="cpText" class="small text-muted"></p>
+    <label class="form-label">Status</label><select id="cpStatus" class="form-select mb-2"><option>Open</option><option>In Progress</option><option>Resolved</option></select>
+    <label class="form-label">Remark</label><textarea id="cpRemark" class="form-control" rows="3"></textarea>
+  </div>
+  <div class="modal-footer"><button class="btn btn-grad">Update</button></div>
+</form></div></div>
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+<script src="js/common.js"></script>
+<script src="js/warden.js"></script>
+</body></html>
