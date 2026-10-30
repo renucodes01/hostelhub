@@ -9,7 +9,12 @@ function api(method, url, data) {
     headers: token() ? { Authorization: 'Bearer ' + token() } : {}
   }).fail((x) => { if (x.status === 401 && token()) logout(); });
 }
-const errMsg = (x) => (x.responseJSON && x.responseJSON.message) || 'Something went wrong';
+const errMsg = (x) => {
+  if (x.responseJSON && x.responseJSON.message) return x.responseJSON.message;
+  if (x.status === 0) return 'Cannot reach server. Open the site via the server URL (http://localhost:5000 or your Render link), not Live Server.';
+  if (x.status === 404 || x.status === 405) return 'API not found. Open the site via the Node server URL, not Live Server (port 5500).';
+  return 'Something went wrong';
+};
 const esc = (s) => String(s == null ? '' : s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const money = (n) => '₹' + Number(n || 0).toLocaleString('en-IN');
 const fdate = (d) => d ? new Date(d).toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' }) : '-';

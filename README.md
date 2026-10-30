@@ -1,22 +1,20 @@
 # HostelHub – Online Hostel Management System
-Stack: HTML/CSS, Bootstrap 5, jQuery, Node.js, Express.js, MongoDB (Mongoose)
+Stack: HTML/CSS, Bootstrap 5, jQuery, Node.js, Express, MongoDB Atlas (Mongoose), JWT
 
 ## Run locally
-1. Install Node.js (v18+) and create a free MongoDB Atlas cluster.
-2. Open `.env` and paste your Atlas connection string in `MONGO_URI`, set any long `JWT_SECRET`.
-3. Commands:
+1. `.env` fill pannunga (see `.env.example`): MONGO_URI (without username/password), DB_USER, DB_PASS, JWT_SECRET.
+2. Commands:
    npm install
-   npm run seed      (creates warden + 24 sample rooms, run once)
+   npm run check     (DB connect aagudha nu test, exact error hint tharum)
+   npm run seed      (warden + 24 rooms, once)
    npm start
-4. Open http://localhost:5000
-   Warden login: warden@hostel.com / warden123  (change the password after first login/seed)
-   Students register themselves from the Student Register tab.
+3. Open http://localhost:5000  (NOT Live Server)
+   Warden: warden@hostel.com / warden123
 
-## Deploy free (Render + MongoDB Atlas)
-GitHub Pages = static only, Node backend run aagadhu. So: code -> GitHub, hosting -> Render.
-1. Push this folder to a GitHub repo (`.env` is gitignored, don't push it).
-2. render.com -> New -> Web Service -> connect repo.
-   Build: npm install | Start: npm start
-3. Environment variables: MONGO_URI, JWT_SECRET
-4. Atlas -> Network Access -> Add IP 0.0.0.0/0
-5. Deploy. Run seed once from your laptop (same MONGO_URI) -> `npm run seed`.
+## Deploy online (Render, free)
+1. Push code to GitHub (`.env` is gitignored).
+2. render.com -> New -> Web Service -> select repo. Build: `npm install`, Start: `npm start`.
+3. Environment variables on Render: MONGO_URI, DB_USER, DB_PASS, JWT_SECRET (same values as .env).
+4. Atlas -> Network Access -> 0.0.0.0/0 (Active).
+5. Run `npm run seed` once from laptop (same DB). Open your Render URL.
+Health check: /api/health

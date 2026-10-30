@@ -1,12 +1,13 @@
 // Run once:  npm run seed
 require('dotenv').config();
 const mongoose = require('mongoose');
+const { connect } = require('./db');
 const bcrypt = require('bcryptjs');
 const User = require('./models/User');
 const Room = require('./models/Room');
 
 (async () => {
-  await mongoose.connect(process.env.MONGO_URI);
+  await connect();
   if (!(await User.findOne({ email: 'warden@hostel.com' }))) {
     await User.create({ name: 'Chief Warden', email: 'warden@hostel.com', password: await bcrypt.hash('warden123', 10), role: 'warden' });
     console.log('Warden created -> warden@hostel.com / warden123');
